@@ -2,33 +2,30 @@ const mysql = require("mysql2/promise");
 
 async function connect(){
 
-    if(global.connection && global.connection.state !== "disconnected"){
-        return global.connection;
-    }
+  if(global.connection){
+    return global.connection;
+  }
 
-    const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "88567731",
-        database: "testeNode"
-    });
+  const connection = await mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"88567731",
+    database:"testeNode"
+  });
 
-    console.log("Conectou no MySQL");
+  console.log("Conectado ao MySQL");
 
-    global.connection = connection;
+  global.connection = connection;
 
-    return connection;
+  return connection;
 }
 
-async function query(sql, params){
+async function query(sql,params){
 
-    const conn = await connect();
+  const conn = await connect();
 
-    return conn.query(sql, params);
+  return conn.query(sql,params);
 
 }
 
-module.exports = {
-    connect,
-    query
-};
+module.exports = {connect,query};
